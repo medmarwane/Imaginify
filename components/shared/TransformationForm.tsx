@@ -10,7 +10,7 @@ import { aspectRatioOptions, defaultValues, transformationTypes } from "@/consta
 import { CustomField } from "./CustomField"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useState } from "react"
-import { AspectRatioKey } from "@/lib/utils"
+import { AspectRatioKey, debounce } from "@/lib/utils"
 
 export const formSchema = z.object({
   title: z.string(),
@@ -60,14 +60,21 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
       height: imageSize.height
     }))
 
-    console.log(imageSize)
-
     setNewTransformation(transformationType.config)
 
     return onChangeField(value)
   }
 
-  const onInputChangeHandler = (fieldName: string, value: string, type: string, onChangeField: (value: string) => void) => {}
+  const onInputChangeHandler = (fieldName: string, value: string, type: string, onChangeField: (value: string) => void) => {
+    debounce(() => {
+      setNewTransformation((prevState: any) => ({
+        ...prevState,
+        [type]: { ...prevState?.[type], [fieldName === "prompt" ? "prompt" : "to"]: value }
+      }))
+
+      return onChangeField(value)
+    }, 1000)
+  }
 
   const onTransformHandler = () => {}
 
