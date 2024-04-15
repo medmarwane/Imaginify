@@ -50,7 +50,22 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
     console.log(values)
   }
 
-  const onSelectFieldHandler = (value: string, onChandeField: (value: string) => void) => {}
+  const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {
+    const imageSize = aspectRatioOptions[value as AspectRatioKey]
+
+    setImage((prevState: any) => ({
+      ...prevState,
+      aspectRatio: imageSize.aspectRatio,
+      width: imageSize.width,
+      height: imageSize.height
+    }))
+
+    console.log(imageSize)
+
+    setNewTransformation(transformationType.config)
+
+    return onChangeField(value)
+  }
 
   const onInputChangeHandler = (fieldName: string, value: string, type: string, onChangeField: (value: string) => void) => {}
 
