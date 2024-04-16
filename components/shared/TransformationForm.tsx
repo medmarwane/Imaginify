@@ -6,13 +6,14 @@ import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { aspectRatioOptions, defaultValues, transformationTypes } from "@/constants"
+import { aspectRatioOptions, creditFee, defaultValues, transformationTypes } from "@/constants"
 import { CustomField } from "./CustomField"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useState, useTransition } from "react"
 import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
 import { updateCredits } from "@/lib/actions/user.actions"
 import MediaUploader from "./MediaUploader.tsx 11-11-09-174"
+import TransformedImage from "./TransformedImage"
 
 export const formSchema = z.object({
   title: z.string(),
@@ -79,7 +80,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
     }, 1000)
   }
 
-  // TODO: Return to updateCredits
+  // TODO: Update creditFee to something else
   const onTransformHandler = async () => {
     setIsTransforming(true)
 
@@ -88,7 +89,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
     setNewTransformation(null)
 
     startTransition(async () => {
-      // await updateCredits(userId, creditFee)
+      await updateCredits(userId, -1)
     })
   }
 
@@ -130,6 +131,8 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
 
         <div className="media-uploader-field">
           <CustomField control={form.control} name="publicId" className="flex size-full flex-col" render={({ field }) => <MediaUploader onValueChange={field.onChange} image={image} setImage={setImage} publicId={field.value} type={type} />} />
+
+          <TransformedImage image={image} type={type} title={form.getValues().title} isTransforming={isTransforming} setIsTransforming={setIsTransforming} transformationConfig={transformationConfig} />
         </div>
 
         <div className="flex flex-col gap-4">
