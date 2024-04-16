@@ -39,7 +39,7 @@ export async function addImage({ image, userId, path }: AddImageParams) {
 }
 
 // UPDATE IMAGE
-export async function updageImage({ image, userId, path }: UpdateImageParams) {
+export async function updateImage({ image, userId, path }: UpdateImageParams) {
   try {
     await connectToDatabase()
 
