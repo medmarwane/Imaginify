@@ -1,8 +1,11 @@
+"use client"
+
 import { dataUrl, debounce, getImageSize } from "@/lib/utils"
 import { CldImage } from "next-cloudinary"
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props"
 import Image from "next/image"
 import React from "react"
+import { Button } from "../ui/button"
 
 const TransformedImage = ({ image, type, title, isTransforming, setIsTransforming, transformationConfig, hasDownload = false }: TransformedImageProps) => {
   const downloadHandler = () => {}
@@ -12,9 +15,9 @@ const TransformedImage = ({ image, type, title, isTransforming, setIsTransformin
       <div className="flex-between">
         <h3 className="h3-bold text-dark-600">Transformed</h3>
         {hasDownload && (
-          <button className="download-btn" onClick={downloadHandler}>
+          <Button className="download-btn" onClick={downloadHandler}>
             <Image src="/assets/icons/download.svg" width={24} height={24} alt="download" className="pb-[6px]" />
-          </button>
+          </Button>
         )}
       </div>
 
