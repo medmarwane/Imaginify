@@ -1,23 +1,23 @@
 "use client"
 
-import { z } from "zod"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Form } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { aspectRatioOptions, creditFee, defaultValues, transformationTypes } from "@/constants"
-import { CustomField } from "./CustomField"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useEffect, useState, useTransition } from "react"
-import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
+import { aspectRatioOptions, creditFee, defaultValues, transformationTypes } from "@/constants"
+import { addImage, updateImage } from "@/lib/actions/image.actions"
 import { updateCredits } from "@/lib/actions/user.actions"
+import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { getCldImageUrl } from "next-cloudinary"
+import { useRouter } from "next/navigation"
+import { useEffect, useState, useTransition } from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { CustomField } from "./CustomField"
+import { InsufficientCreditsModal } from "./InsufficientCreditsModal"
 import MediaUploader from "./MediaUploader.tsx 11-11-09-174"
 import TransformedImage from "./TransformedImage"
-import { getCldImageUrl } from "next-cloudinary"
-import { addImage, updateImage } from "@/lib/actions/image.actions"
-import { useRouter } from "next/navigation"
-import { InsufficientCreditsModal } from "./InsufficientCreditsModal"
 
 export const formSchema = z.object({
   title: z.string(),
@@ -174,7 +174,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
             formLabel="Aspect Ratio"
             className="w-full"
             render={({ field }) => (
-              <Select onValueChange={value => onSelectFieldHandler(value, field.onChange)}>
+              <Select onValueChange={value => onSelectFieldHandler(value, field.onChange)} value={field.value}>
                 <SelectTrigger className="select-field">
                   <SelectValue placeholder="Select size" />
                 </SelectTrigger>

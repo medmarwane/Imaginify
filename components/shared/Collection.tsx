@@ -1,9 +1,9 @@
 "use client"
 
+import { CldImage } from "next-cloudinary"
 import Image from "next/image"
 import Link from "next/link"
-import { useSearchParams, useRouter } from "next/navigation"
-import { CldImage } from "next-cloudinary"
+import { useRouter, useSearchParams } from "next/navigation"
 
 import { Pagination, PaginationContent, PaginationNext, PaginationPrevious } from "@/components/ui/pagination"
 import { transformationTypes } from "@/constants"

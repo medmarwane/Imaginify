@@ -1,10 +1,10 @@
 "use client"
 
+import { dataUrl, getImageSize } from "@/lib/utils"
+import { CldImage, CldUploadWidget } from "next-cloudinary"
+import { PlaceholderValue } from "next/dist/shared/lib/get-img-props"
 import Image from "next/image"
 import { useToast } from "../ui/use-toast"
-import { CldImage, CldUploadWidget } from "next-cloudinary"
-import { dataUrl, getImageSize } from "@/lib/utils"
-import { PlaceholderValue } from "next/dist/shared/lib/get-img-props"
 
 type MediaUploaderProps = {
   onValueChange: (value: string) => void

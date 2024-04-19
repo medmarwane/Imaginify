@@ -4,7 +4,6 @@ import { transformationTypes } from "@/constants"
 import { getUserById } from "@/lib/actions/user.actions"
 import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
-import React from "react"
 
 const AddTransformationTypePage = async ({ params: { type } }: SearchParamProps) => {
   const { userId } = auth()
