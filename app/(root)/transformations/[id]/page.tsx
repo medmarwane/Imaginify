@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs"
 import Image from "next/image"
 import Link from "next/link"
 
-import DeleteConfirmation from "@/components/shared/DeleteConfirmation"
+import { DeleteConfirmation } from "@/components/shared/DeleteConfirmation"
 import Header from "@/components/shared/Header"
 import TransformedImage from "@/components/shared/TransformedImage"
 import { Button } from "@/components/ui/button"
@@ -74,7 +74,7 @@ const ImageDetails = async ({ params: { id } }: SearchParamProps) => {
               <Link href={`/transformations/${image._id}/update`}>Update Image</Link>
             </Button>
 
-            <DeleteConfirmation />
+            <DeleteConfirmation imageId={image._id} />
           </div>
         )}
       </section>
