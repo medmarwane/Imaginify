@@ -75,7 +75,7 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
   let timeoutId: NodeJS.Timeout | null
   return (...args: any[]) => {
     if (timeoutId) clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => func.apply(null, args), delay)
+    timeoutId = setTimeout(() => func(...args), delay)
   }
 }
 
@@ -101,7 +101,7 @@ export const download = (url: string, filename: string) => {
       const a = document.createElement("a")
       a.href = blobURL
 
-      if (filename && filename.length) a.download = `${filename.replace(" ", "_")}.png`
+      if (filename?.length) a.download = `${filename.replace(" ", "_")}.png`
       document.body.appendChild(a)
       a.click()
     })
